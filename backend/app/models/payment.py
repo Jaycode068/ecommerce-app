@@ -1,4 +1,5 @@
 from app.extension import db
+from datetime import datetime
 
 class Payment(db.Model):
     id = db.Column(db.Integer, primary_key=True)

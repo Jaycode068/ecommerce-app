@@ -1,4 +1,4 @@
-from app.extension import db
+from app.extension import db 
 
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)

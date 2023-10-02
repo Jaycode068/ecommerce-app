@@ -1,13 +1,14 @@
+from app.extension import db
 
 class Address(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     street = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(50), nullable=False)
     state = db.Column(db.String(50), nullable=False)
     postal_code = db.Column(db.String(10), nullable=False)
-    user = db.relationship('User', back_populates='address')
-
+    user = db.relationship('User', back_populates='addresses')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
+    
     def _init_(self, user, street, city, state, postal_code):
         self.user = user
         self.street = street

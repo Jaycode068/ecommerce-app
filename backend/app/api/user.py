@@ -11,7 +11,7 @@ from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt()
 # GET endpoint to retrieve all users
-@bp.route('/users', methods=['GET'])
+@bp.route('/api/v1/user/all', methods=['GET'])
 def get_users():
     try:
         users = User.query.all()
@@ -33,7 +33,7 @@ def handle_error(error):
     return jsonify({'error': 'Internal server error'}), 500
 
 
-@bp.route('/signup', methods=['POST'])
+@bp.route('/api/v1/user/save', methods=['POST'])
 def signup():
     data = request.get_json()
 
@@ -77,7 +77,7 @@ def signup():
     # Add a return statement in case none of the conditions are met
     return jsonify({'error': 'Invalid request'}), 400
 
-@bp.route('/update_user/<int:user_id>', methods=['PUT'])
+@bp.route('/api/v1/user/update/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     data = request.get_json()
 
@@ -104,7 +104,7 @@ def update_user(user_id):
         db.session.rollback()
         return jsonify({'error': 'Error occurred while updating user information'}), 500
 
-@bp.route('/delete_user/<int:user_id>', methods=['DELETE'])
+@bp.route('/api/v1/user/delete/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     # Check if the user with the specified user_id exists
     user = User.query.get(user_id)

@@ -13,9 +13,8 @@ from app.models.address import Address
 def get_users():
     try:
         users = User.query.all()
-        ##addresses = Address.query.all()
-        print(users)
-        return jsonify(users.username)
+        user_list = [{"username": user.username, "email": user.email} for user in users]
+        return jsonify({"users": user_list}), 200
     except SQLAlchemyError as e:
         db.session.rollback()
         print(e)
@@ -37,20 +36,16 @@ def signup():
     data = request.get_json()
 
     # Validate the request data
-    if not all(key in data for key in ['username', 'email','password']):
-        return jsonify({'error': 'Missing username or email'}), 400
+    if not all(key in data for key in ['username', 'email', 'password']):
+        return jsonify({'error': 'Missing username, email, or password'}), 400
 
     username = data['username']
     email = data['email']
     password = data['password']
     
-    print(data)
-
-    print("Check user firs")
     # Check if the username or email already exists in the database
     try:
         existing_user = User.query.filter_by(username=username).first()
-        print("Checking existing user from db "+ existing_user)
         if existing_user:
             return jsonify({'error': 'Username already exists'}), 400
 
@@ -59,7 +54,7 @@ def signup():
             return jsonify({'error': 'Email already exists'}), 400
         
     except SQLAlchemyError as e:
-        print(e)
+        return jsonify({'error': 'Database error occurred'}), 500
 
     # Create a new user
     new_user = User(username=username, email=email, password=password)
@@ -70,7 +65,52 @@ def signup():
         db.session.commit()
         return jsonify({'message': 'User registered successfully'}), 201
     except Exception as e:
-        print(e)
         # Handle database errors
         db.session.rollback()
         return jsonify({'error': 'Error occurred while registering the user'}), 500
+
+    # Add a return statement in case none of the conditions are met
+    return jsonify({'error': 'Invalid request'}), 400
+
+@bp.route('/update_user/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    data = request.get_json()
+
+    # Validate the request data
+    if not all(key in data for key in ['username', 'email']):
+        return jsonify({'error': 'Missing username or email'}), 400
+
+    username = data['username']
+    email = data['email']
+
+    # Check if the user with the specified user_id exists
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    # Update user information
+    user.username = username
+    user.email = email
+
+    try:
+        db.session.commit()
+        return jsonify({'message': 'User information updated successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Error occurred while updating user information'}), 500
+
+@bp.route('/delete_user/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    # Check if the user with the specified user_id exists
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'User deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Error occurred while deleting the user'}), 500
+

@@ -6,6 +6,7 @@ from app.extension import db
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://johnson:"Ibelieve1!"@localhost:3306/appdb'
 
     # Initialize Flask extensions here
     db.init_app(app)

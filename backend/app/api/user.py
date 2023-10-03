@@ -6,8 +6,10 @@ from flask import Flask, jsonify
 from sqlalchemy.exc import SQLAlchemyError
 from app.models.user import User
 from app.models.address import Address
+from flask_bcrypt import Bcrypt
 
 
+bcrypt = Bcrypt()
 # GET endpoint to retrieve all users
 @bp.route('/users', methods=['GET'])
 def get_users():
@@ -55,9 +57,12 @@ def signup():
         
     except SQLAlchemyError as e:
         return jsonify({'error': 'Database error occurred'}), 500
+    
+    # Hash the password
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     # Create a new user
-    new_user = User(username=username, email=email, password=password)
+    new_user = User(username=username, email=email, password=hashed_password)
 
     try:
         # Add the new user to the database and commit the transaction

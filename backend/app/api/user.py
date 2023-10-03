@@ -15,7 +15,7 @@ bcrypt = Bcrypt()
 def get_users():
     try:
         users = User.query.all()
-        user_list = [{"username": user.username, "email": user.email} for user in users]
+        user_list = [{"Id":user.id, "username": user.username, "email": user.email} for user in users]
         return jsonify({"users": user_list}), 200
     except SQLAlchemyError as e:
         db.session.rollback()
@@ -82,20 +82,23 @@ def update_user(user_id):
     data = request.get_json()
 
     # Validate the request data
-    if not all(key in data for key in ['username', 'email']):
+    if not all(key in data for key in ['username', 'email', 'password']):
         return jsonify({'error': 'Missing username or email'}), 400
 
     username = data['username']
     email = data['email']
+    password = data['password']
 
     # Check if the user with the specified user_id exists
     user = User.query.get(user_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     # Update user information
     user.username = username
     user.email = email
+    user.password = hashed_password
 
     try:
         db.session.commit()

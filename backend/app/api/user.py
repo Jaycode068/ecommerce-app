@@ -14,8 +14,8 @@ def get_users():
     try:
         users = User.query.all()
         ##addresses = Address.query.all()
-        
         print(users)
+        return jsonify(users.username)
     except SQLAlchemyError as e:
         db.session.rollback()
         print(e)

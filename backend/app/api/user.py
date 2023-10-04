@@ -6,14 +6,16 @@ from flask import Flask, jsonify
 from sqlalchemy.exc import SQLAlchemyError
 from app.models.user import User
 from app.models.address import Address
+from flask_bcrypt import Bcrypt
 
 
+bcrypt = Bcrypt()
 # GET endpoint to retrieve all users
-@bp.route('/users', methods=['GET'])
+@bp.route('/api/v1/user/all', methods=['GET'])
 def get_users():
     try:
         users = User.query.all()
-        user_list = [{"username": user.username, "email": user.email} for user in users]
+        user_list = [{"Id":user.id, "username": user.username, "email": user.email} for user in users]
         return jsonify({"users": user_list}), 200
     except SQLAlchemyError as e:
         db.session.rollback()
@@ -31,7 +33,7 @@ def handle_error(error):
     return jsonify({'error': 'Internal server error'}), 500
 
 
-@bp.route('/signup', methods=['POST'])
+@bp.route('/api/v1/user/save', methods=['POST'])
 def signup():
     data = request.get_json()
 
@@ -55,9 +57,12 @@ def signup():
         
     except SQLAlchemyError as e:
         return jsonify({'error': 'Database error occurred'}), 500
+    
+    # Hash the password
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     # Create a new user
-    new_user = User(username=username, email=email, password=password)
+    new_user = User(username=username, email=email, password=hashed_password)
 
     try:
         # Add the new user to the database and commit the transaction
@@ -72,25 +77,28 @@ def signup():
     # Add a return statement in case none of the conditions are met
     return jsonify({'error': 'Invalid request'}), 400
 
-@bp.route('/update_user/<int:user_id>', methods=['PUT'])
+@bp.route('/api/v1/user/update/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     data = request.get_json()
 
     # Validate the request data
-    if not all(key in data for key in ['username', 'email']):
+    if not all(key in data for key in ['username', 'email', 'password']):
         return jsonify({'error': 'Missing username or email'}), 400
 
     username = data['username']
     email = data['email']
+    password = data['password']
 
     # Check if the user with the specified user_id exists
     user = User.query.get(user_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     # Update user information
     user.username = username
     user.email = email
+    user.password = hashed_password
 
     try:
         db.session.commit()
@@ -99,7 +107,7 @@ def update_user(user_id):
         db.session.rollback()
         return jsonify({'error': 'Error occurred while updating user information'}), 500
 
-@bp.route('/delete_user/<int:user_id>', methods=['DELETE'])
+@bp.route('/api/v1/user/delete/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     # Check if the user with the specified user_id exists
     user = User.query.get(user_id)

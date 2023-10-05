@@ -8,6 +8,7 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     confirmpasswd=''
     addresses = db.relationship('Address', back_populates='user', cascade='all, delete-orphan')
+    orders = db.relationship('Order', back_populates='user', cascade='all, delete-orphan')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     def _init_(self, username, email):

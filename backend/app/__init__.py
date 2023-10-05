@@ -4,6 +4,7 @@ from app.extension import db
 from app.main import bp as main_bp
 from app.api.category import category_bp
 from app.api.product import product_bp
+from app.api.order import order_bp
 from app.api import bp as user_bp
 
 def create_app(config_class=Config):
@@ -14,17 +15,28 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
-
     # Register blueprints here
     app.register_blueprint(main_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(category_bp, url_prefix='/api')
     app.register_blueprint(product_bp, url_prefix='/api')
+    app.register_blueprint(order_bp, url_prefix='/api')
 
     
 
     @app.route('/test/')
     def test_page():
+        
+        from app.models.address import Address
+        from app.models.cart import Cart
+        from app.models.category import Category
+        from app.models.order_item import OrderItem
+        from app.models.order import Order
+        from app.models.payment import Payment
+        from app.models.product import Product
+        from app.models.user import User
+        db.create_all()
+        
         return '<h1>Testing the Flask Application Factory Pattern</h1>'
 
     return app

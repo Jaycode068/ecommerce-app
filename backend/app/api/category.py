@@ -21,10 +21,12 @@ class CategoryResource(Resource):
     def put(self, category_id):
         category = Category.query.get_or_404(category_id)
         data = request.get_json() or {}
+        
         category_schema = CategorySchema()
 
         try:
-            category = category_schema.load(data, partial=True)
+            
+            category = Category(name= data['name'])
             db.session.add(category)
             db.session.commit()
             return category_schema.dump(category), 200
@@ -36,7 +38,7 @@ class CategoryResource(Resource):
         category = Category.query.get_or_404(category_id)
         db.session.delete(category)
         db.session.commit()
-        return '', 204
+        return 'Category deleted', 204
 
 
 class CategoryListResource(Resource):

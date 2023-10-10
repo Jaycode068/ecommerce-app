@@ -31,11 +31,11 @@ def create_app(config_class=Config):
 
     # Register blueprints here
     app.register_blueprint(main_bp)
-    app.register_blueprint(user_bp)
-    app.register_blueprint(category_bp, url_prefix='/api')
-    app.register_blueprint(product_bp, url_prefix='/api')
-    app.register_blueprint(order_bp, url_prefix='/api')
-    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(user_bp, url_prefix='/api/v1')
+    app.register_blueprint(category_bp, url_prefix='/api/v1')
+    app.register_blueprint(product_bp, url_prefix='/api/v1')
+    app.register_blueprint(order_bp, url_prefix='/api/v1')
+    app.register_blueprint(auth_bp, url_prefix='/auth/v1')
 
 
     

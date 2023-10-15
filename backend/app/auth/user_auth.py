@@ -62,46 +62,46 @@ def protected_resource():
     return jsonify({'message': 'This is a protected resource.'})
 
 # Add these imports to your user_auth.py
-from app.utils import generate_reset_token, verify_reset_token
-from app.email import send_password_reset_email
+# from app.utils import generate_reset_token, verify_reset_token
+# from app.email import send_password_reset_email
 
-@auth_bp.route('/password_reset_request', methods=['POST'])
-def password_reset_request():
-    data = request.get_json()
-    email = data.get('email')
+# @auth_bp.route('/password_reset_request', methods=['POST'])
+# def password_reset_request():
+#     data = request.get_json()
+#     email = data.get('email')
 
-    # Check if the email exists in your database
-    user = User.query.filter_by(email=email).first()
+#     # Check if the email exists in your database
+#     user = User.query.filter_by(email=email).first()
 
-    if user:
-        # Generate a unique reset token
-        token = generate_reset_token(user.id)
+#     if user:
+#         # Generate a unique reset token
+#         token = generate_reset_token(user.id)
         
-        # Send an email with a password reset link
-        send_password_reset_email(user.email, token)
+#         # Send an email with a password reset link
+#         send_password_reset_email(user.email, token)
     
-    # Always return a success response to avoid exposing user existence
-    return jsonify({'message': 'Password reset email sent'}), 200
+#     # Always return a success response to avoid exposing user existence
+#     return jsonify({'message': 'Password reset email sent'}), 200
 
-@auth_bp.route('/password_reset/<token>', methods=['GET', 'POST'])
-def password_reset(token):
-    # Verify the token
-    user_id = verify_reset_token(token)
+# @auth_bp.route('/password_reset/<token>', methods=['GET', 'POST'])
+# def password_reset(token):
+#     # Verify the token
+#     user_id = verify_reset_token(token)
     
-    if not user_id:
-        return jsonify({'message': 'Invalid or expired token'}), 400
+#     if not user_id:
+#         return jsonify({'message': 'Invalid or expired token'}), 400
 
-    if request.method == 'POST':
-        # Get the new password from the form
-        data = request.get_json()
-        new_password = data.get('new_password')
+#     if request.method == 'POST':
+#         # Get the new password from the form
+#         data = request.get_json()
+#         new_password = data.get('new_password')
 
-        # Update the user's password
-        user = User.query.get(user_id)
-        user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
-        db.session.commit()
+#         # Update the user's password
+#         user = User.query.get(user_id)
+#         user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+#         db.session.commit()
         
-        return jsonify({'message': 'Password reset successful'}), 200
+#         return jsonify({'message': 'Password reset successful'}), 200
 
-    # If it's a GET request, display the password reset form
-    return render_template('password_reset_form.html')
+#     # If it's a GET request, display the password reset form
+#     return render_template('password_reset_form.html')

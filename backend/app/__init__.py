@@ -7,6 +7,7 @@ from app.api.product import product_bp
 from app.api.order import order_bp
 from app.api import bp as user_bp
 from app.auth.user_auth import auth_bp
+from app.api.address import address_bp
 from flask_jwt_extended import JWTManager
 from flask_session import Session
 
@@ -31,11 +32,12 @@ def create_app(config_class=Config):
 
     # Register blueprints here
     app.register_blueprint(main_bp)
-    app.register_blueprint(user_bp)
-    app.register_blueprint(category_bp, url_prefix='/api')
-    app.register_blueprint(product_bp, url_prefix='/api')
-    app.register_blueprint(order_bp, url_prefix='/api')
-    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(user_bp, url_prefix='/api/v1')
+    app.register_blueprint(category_bp, url_prefix='/api/v1')
+    app.register_blueprint(product_bp, url_prefix='/api/v1')
+    app.register_blueprint(order_bp, url_prefix='/api/v1')
+    app.register_blueprint(auth_bp, url_prefix='/auth/v1')
+    app.register_blueprint(address_bp, url_prefix='/api/v1')
 
 
     

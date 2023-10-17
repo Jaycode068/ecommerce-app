@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from config import Config
 from app.extension import db
 from app.main import bp as main_bp
@@ -19,7 +19,7 @@ def create_app(config_class=Config):
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['SECRET_KEY'] = 'your_secret_key_here'  
 
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://johnson:"Ibelieve1!"@localhost:3306/appdb'
+    
 
     # Initialize Flask extensions here
     db.init_app(app)
@@ -56,6 +56,8 @@ def create_app(config_class=Config):
         db.create_all()
         
         return '<h1>Testing the Flask Application Factory Pattern</h1>'
+    
+    
 
     return app
  

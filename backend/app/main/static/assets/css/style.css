@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Blinker:wght@400;600;700&family=Righteous&family=Roboto:wght@400;500&display=swap');
+
+:root {
+    --color1: #ffffff;
+    --color2: #f68b1e;
+    --color3: #d6710c;
+    --color4: #d4d4d6;
+    --color5: #252424;
+    --color6: #535357;
+    --color7: #fef3e9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', 'Blinker' 'san-serif';
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 0.9rem;
+}
+
+h6 {
+    font-size: 0.8rem;
+}
+
+/* NavBar */
+.navbar {
+    padding: 14px 0;
+}
+
+.search, .sign, .chat {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color1);
+}
+
+.search-btn {
+    background-color: var(--color2);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-btn:hover, .sign-btn:hover, .chat-btn:hover {
+    background-color: var(--color3);
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: var(--color2);
+}
+
+.nav-link:focus {
+    background-color: var(--color4);
+    border-radius: 4px;
+}
+
+.sign-btn {
+    width: 130px;
+    background-color: var(--color2);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-btn {
+    width: 160px;
+    background-color: var(--color2);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+    font-size: 0.8rem;
+    margin: 5px 0;
+}
+
+input.form-1 {
+    border: 1px solid #555;
+    width: 100%;
+    padding: 8px 4px 9px 40px;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+}
+
+/* Home */
+main {
+    background-image: url(https://ng.jumia.is/cms/0-1-weekly-cps/0-2023/01-Jumia-cover-you/Jumia-cover-you-bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #b177da;
+}
+
+.home {
+    padding: 15px 24px ;
+}
+
+.home-categories {
+    margin-bottom: 0;
+    background-color: var(--color1);
+    color: var(--color5);
+}
+
+.home-categories p {
+    margin: 7px;
+    padding-left: 4px;
+}
+
+.home-categories a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: var(--color5);
+}
+
+.home-categories a:hover {
+    color: var(--color2);
+}
+
+.carousel-item img {
+    width: 100%;
+}
+
+.side-img {
+    position: relative;
+}
+
+.side-img img {
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 25px;
+    object-fit: contain;
+}
+.side-img-2 img {
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    margin-top: 25px;
+    object-fit: contain;
+    align-items: end;
+}
+
+/* Product Row */
+.first-row {
+  padding: 5px;
+  border-radius: 4px;
+  background-color: var(--color1);
+}
+
+/* Top Selling Row */
+.second-row {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: var(--color1);
+}
+
+/* Card */
+.card {
+    border: 0;
+}
+
+.product {
+    border: 0;
+}
+
+.product:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-text {
+    white-space: nowrap;
+    width: auto; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 8px;
+}
+
+.card-body h5 {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.card-body span {
+    font-size: 0.8rem;
+}
+
+.item-left {
+    font-size: 0.8rem;
+    margin: 0;
+}
+   
+.discount {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    padding: 0 4px;
+    font-size: .8rem;
+    border-radius: 2px;
+    color: var(--color2);
+    background-color: var(--color7);
+}
+
+
+/* Footer */
+footer {
+    background-color: var(--color6);
+    color: var(--color1);
+}
+.footer-logo {
+    font-family: 'Righteous', 'san-serif';
+}
+
+/* Footer 1 */
+.footer-1 {
+    font-size: 0.75rem;
+    background-color: var(--color5);
+    color: var(--color1);
+}
+
+.form-2 {
+    border: none;
+    color: var(--color6);
+    border-radius: 4px;
+    padding: 8px 4px 9px 40px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-envelope-fill" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>') no-repeat 13px center;
+}
+
+.form-2:focus {
+    padding: 8px 4px 9px 40px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-envelope-fill" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>') no-repeat 13px center;
+    border: 2px solid var(--color2);
+    box-shadow: none;
+}
+
+.sub-btn {
+    border-radius: 4px;
+    color: var(--color1);
+    border-color: var(--color1);
+}
+
+.sub-btn:hover, .download-btn:hover {
+    color: var(--color2);
+    border-color: var(--color2);
+}
+
+/* Download Buttons */
+.download-btn {
+    width: 100px;
+    padding: 4px;
+    line-height: 10px;
+    border-radius: 4px;
+    text-align: left;
+    color: var(--color1);
+    border-color: var(--color1);
+}
+
+.btn-icon {
+    float: left;
+    padding-right: 3px;
+}
+
+.btn-content-small {
+    font-size: 0.5rem;
+}
+
+.btn-content-big {
+    margin-bottom: 1px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Footer 2 */
+.footer-links {
+    font-size: 0.75rem;
+}
+
+.footer-links h6 {
+    margin: 0;
+    padding-bottom: 16px;
+}
+
+.footer-links p {
+    margin: 0;
+    padding-bottom: 4px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--color1);
+}
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+table {
+    width: 150px;
+}
+
+.footer-icons i {
+    font-size: 1.5rem;
+    padding: 8px;
+}
+
+.footer-icons i:hover {
+    color: var(--color2);
+}
+
+.footer-icons svg {
+    padding-left: 8px;
+}
+
+.footer-icons svg g:hover {
+    fill: var(--color2);
+}

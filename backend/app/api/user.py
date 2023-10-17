@@ -56,6 +56,7 @@ def signup():
             return jsonify({'error': 'Email already exists'}), 400
         
     except SQLAlchemyError as e:
+        print(e)
         return jsonify({'error': 'Database error occurred'}), 500
     
     # Hash the password

@@ -13,7 +13,7 @@ from flask_session import Session
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__, template_folder='main/templates', static_folder='main/static')
+    app = Flask(__name__, template_folder='main/templates', static_folder='main/static/assets')
     app.config.from_object(config_class)
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
     app.config['SESSION_TYPE'] = 'filesystem'

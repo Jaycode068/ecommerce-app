@@ -20,6 +20,35 @@ def my_account():
     
     return render_template('my-account.html')
 
+@bp.route('/shop')
+def shop_list():
+    
+    return render_template('shop-list.html')
+
+@bp.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
+@bp.route('/cart')
+def cart():
+    return render_template('cart.html')
+
+
+@bp.route('/portfolio')
+def portfolio():
+    return render_template('portfolio.html')
+
+
+@bp.route('/wishlist')
+def wishlist():
+    return render_template('wishlist.html')
+
+
+@bp.route('/error')
+def error():
+    return render_template('404.html')
+
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     

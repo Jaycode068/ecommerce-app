@@ -755,7 +755,7 @@
         <!-- Start login section  -->
         <div class="login__section section--padding">
             <div class="container">
-                <form action="#">
+                <form action="#" method="POST">
                     <div class="login__section--inner">
                         <div class="row row-cols-md-2 row-cols-1">
                             <div class="col">
@@ -765,8 +765,8 @@
                                         <p class="account__login--header__desc">Login if you area a returning customer.</p>
                                     </div>
                                     <div class="account__login--inner">
-                                        <input class="account__login--input" placeholder="Email Addres" type="text">
-                                        <input class="account__login--input" placeholder="Password" type="password">
+                                        <input class="account__login--input" placeholder="Username" type="text" id="username">
+                                        <input class="account__login--input" placeholder="Password" type="password" id="password">
                                         <div class="account__login--remember__forgot mb-15 d-flex justify-content-between align-items-center">
                                             <div class="account__login--remember position__relative">
                                                 <input class="checkout__checkbox--input" id="check1" type="checkbox">
@@ -776,7 +776,7 @@
                                             </div>
                                             <button class="account__login--forgot" type="submit">Forgot Your Password?</button>
                                         </div>
-                                        <button class="account__login--btn primary__btn" type="submit">Login</button>
+                                        <button class="account__login--btn primary__btn" type="submit" id="btn-login">Login</button>
                                         <div class="account__login--divide">
                                             <span class="account__login--divide__text">OR</span>
                                         </div>
@@ -796,10 +796,10 @@
                                         <p class="account__login--header__desc">Register here if you are a new customer</p>
                                     </div>
                                     <div class="account__login--inner">
-                                        <input class="account__login--input" placeholder="Username" type="text">
-                                        <input class="account__login--input" placeholder="Email Addres" type="text">
-                                        <input class="account__login--input" placeholder="Password" type="password">
-                                        <input class="account__login--input" placeholder="Confirm Password" type="password">
+                                        <input class="account__login--input" placeholder="Username" type="text" id="username">
+                                        <input class="account__login--input" placeholder="Email Addres" type="text" id="email">
+                                        <input class="account__login--input" placeholder="Password" type="password" id="password">
+                                        <input class="account__login--input" placeholder="Confirm Password" type="password" id="cpassword">
                                         <button class="account__login--btn primary__btn mb-10" type="submit">Submit & Register</button>
                                         <div class="account__login--remember position__relative">
                                             <input class="checkout__checkbox--input" id="check2" type="checkbox">
@@ -1028,7 +1028,10 @@
   <script src="assets/js/plugins/glightbox.min.js"></script>
 
   <!-- Customscript js -->
+ 
   <script src="assets/js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/login.js"></script>
   
 </body>
 

@@ -21,18 +21,23 @@ class CategoryResource(Resource):
     def put(self, category_id):
         category = Category.query.get_or_404(category_id)
         data = request.get_json() or {}
-        
         category_schema = CategorySchema()
 
+        # Validate the incoming data
+        errors = category_schema.validate(data)
+        if errors:
+            return {'message': 'Validation errors', 'errors': errors}, 400
+
         try:
-            
-            category = Category(name= data['name'])
-            db.session.add(category)
+            # Update category fields from the request data
+            category.name = data.get('name', category.name)
+            # Update other fields here as needed
+
             db.session.commit()
             return category_schema.dump(category), 200
-        except IntegrityError:
+        except Exception as e:
             db.session.rollback()
-            return {'message': 'Category name must be unique'}, 400
+            return {'message': 'Error updating category', 'error': str(e)}, 500
 
     def delete(self, category_id):
         category = Category.query.get_or_404(category_id)

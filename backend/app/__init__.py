@@ -8,6 +8,7 @@ from app.api.order import order_bp
 from app.api import bp as user_bp
 from app.auth.user_auth import auth_bp
 from app.api.address import address_bp
+from app.api.users import user_bp as user
 from flask_jwt_extended import JWTManager
 from flask_session import Session
 
@@ -23,6 +24,7 @@ def create_app(config_class=Config):
 
     # Initialize Flask extensions here
     db.init_app(app)
+    
 
     # Initialize Flask-Session
     Session(app)
@@ -38,9 +40,7 @@ def create_app(config_class=Config):
     app.register_blueprint(order_bp, url_prefix='/api/v1')
     app.register_blueprint(auth_bp, url_prefix='/auth/v1')
     app.register_blueprint(address_bp, url_prefix='/api/v1')
-
-
-    
+    app.register_blueprint(user, url_prefix='/api/v1')
 
     @app.route('/test/')
     def test_page():

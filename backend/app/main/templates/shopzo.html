@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="static/assets/css/style-prefix.css">
       
   <title>Shopzo Online Mart</title>
+  <script src="{{ url_for('static', filename='js/redirect.js') }}"></script>
 </head>
 
 <body>
@@ -73,6 +74,15 @@
                             <span class="material-icons pr-3">favorite_border</span>
                             Saved Items</a>
                     </div>
+                </li>
+                <!-- Add a new list item for the "Sign up" button -->
+                <li class="nav-item px-2">
+                    <a class="nav-link d-flex align-items-center" href="/register">
+                        <span class="material-icons pr-2">
+                            perm_identity
+                        </span>
+                        Sign up
+                    </a>
                 </li>
                 <li class="nav-item dropdown px-2">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"

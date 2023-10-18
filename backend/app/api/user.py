@@ -38,13 +38,19 @@ def signup():
     data = request.get_json()
 
     # Validate the request data
-    if not all(key in data for key in ['username', 'email', 'password']):
-        return jsonify({'error': 'Missing username, email, or password'}), 400
+    required_fields = ['username', 'email', 'password', 'first_name', 'last_name']
+
+    if not all(key in data for key in required_fields):
+        missing_fields = [field for field in required_fields if field not in data]
+        return jsonify({'error': f'Missing fields: {", ".join(missing_fields)}'}), 400
 
     username = data['username']
     email = data['email']
     password = data['password']
+    first_name = data['first_name']
+    last_name = data['last_name']
     
+
     # Check if the username or email already exists in the database
     try:
         existing_user = User.query.filter_by(username=username).first()
@@ -54,16 +60,16 @@ def signup():
         existing_email = User.query.filter_by(email=email).first()
         if existing_email:
             return jsonify({'error': 'Email already exists'}), 400
-        
+
     except SQLAlchemyError as e:
         print(e)
         return jsonify({'error': 'Database error occurred'}), 500
-    
+
     # Hash the password
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     # Create a new user
-    new_user = User(username=username, email=email, password=hashed_password)
+    new_user = User(username=username, email=email, password=hashed_password, first_name=first_name, last_name=last_name)
 
     try:
         # Add the new user to the database and commit the transaction
@@ -77,6 +83,7 @@ def signup():
 
     # Add a return statement in case none of the conditions are met
     return jsonify({'error': 'Invalid request'}), 400
+
 
 @bp.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):

@@ -4,4 +4,8 @@ from flask import render_template
 
 @bp.route('/')
 def index():
-    return 'This is The Main Blueprint'
+    return render_template('shopzo.html')
+    
+@bp.route('/register')
+def register():
+    return render_template('register.html')

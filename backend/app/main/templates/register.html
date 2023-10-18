@@ -41,43 +41,66 @@
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
 							<h1 class="fs-4 card-title fw-bold mb-4" style="color: #f68b1b;">Register</h1>
-							<form method="POST" action = "http://localhost:5000/api/v1/users" class="needs-validation" novalidate="" autocomplete="off">
+							<form id="registrationForm" method="POST" action="/api/v1/users" class="needs-validation" novalidate="" autocomplete="off">
 								<div class="mb-3">
-									<label class="mb-2 text-muted" for="name">Name</label>
-									<input id="username" type="text" class="form-control" name="username" value="" required autofocus>
+									<label class="mb-2 text-muted" for="first_name">First Name</label>
+									<input id="first_name" type="text" class="form-control" name="first_name" value="" required>
 									<div class="invalid-feedback">
-										Name is required	
+											First name is required
 									</div>
-								</div>
-
-								<div class="mb-3">
+							</div>
+							
+							<div class="mb-3">
+									<label class="mb-2 text-muted" for="last_name">Last Name</label>
+									<input id="last_name" type="text" class="form-control" name="last_name" value="" required>
+									<div class="invalid-feedback">
+											Last name is required
+									</div>
+							</div>
+							
+							<div class="mb-3">
 									<label class="mb-2 text-muted" for="email">E-Mail Address</label>
 									<input id="email" type="email" class="form-control" name="email" value="" required>
 									<div class="invalid-feedback">
-										Email is invalid
+											Email is invalid
 									</div>
-								</div>
-
-								<div class="mb-3">
+							</div>
+							
+							<div class="mb-3">
+									<label class="mb-2 text-muted" for="username">Username</label>
+									<input id="username" type="text" class="form-control" name="username" value="" required>
+									<div class="invalid-feedback">
+											Username is required
+									</div>
+							</div>
+							
+							<div class="mb-3">
 									<label class="mb-2 text-muted" for="password">Password</label>
 									<input id="password" type="password" class="form-control" name="password" required>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
+									<div class="invalid-feedback">
+											Password is required
+									</div>
+							</div>
+							
+							<div class="mb-3">
+								<label class="mb-2 text-muted" for="confirm_password">Confirm Password</label>
+								<input id="confirm_password" type="password" class="form-control" name="confirm_password" required>
+								<div class="invalid-feedback">
+										Please confirm your password
 								</div>
+							</div>
 
 								<p class="form-text text-muted mb-3">
 									By registering you agree with our terms and condition.
 								</p>
-
-								
 								</div>
+								<div class="align-items-center d-flex">
+									<button type="submit" class="btn btn-primary ms-auto" id="btn_submit">
+										Register	
+									</button>
+							</div>
 							</form>
-							<div class="align-items-center d-flex">
-								<button type="submit" class="btn btn-primary ms-auto" id="btn_submit">
-									Register	
-								</button>
-						</div>
+							
 						<div class="card-footer py-3 border-0">
 							<div class="text-center">
 								Already have an account? <a href="Login.html" class="text-dark" style="color: #e57a16;">Login</a>

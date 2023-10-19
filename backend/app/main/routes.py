@@ -39,11 +39,38 @@ def cart():
 def portfolio():
     return render_template('portfolio.html')
 
+@bp.route('/privacy-policy')
+def privacy_policy():
+    return render_template('privacy-policy.html')
+
+@bp.route('/compare')
+def compare():
+    return render_template('compare.html')
+
+@bp.route('/faq')
+def faq():
+    return render_template('faq.html')
+
 
 @bp.route('/wishlist')
 def wishlist():
     return render_template('wishlist.html')
 
+@bp.route('/blog')
+def blog():
+    return render_template('blog.html')
+
+@bp.route('/blog-details')
+def blog_details():
+    return render_template('blog-details.html')
+
+@bp.route('/product-details')
+def product_details():
+    return render_template('product-details.html')
+
+@bp.route('/checkout')
+def checkout():
+    return render_template('checkout.html')
 
 @bp.route('/error')
 def error():

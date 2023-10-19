@@ -29,6 +29,11 @@ def shop_list():
     
     return render_template('shop-list.html')
 
+@bp.route('/shop-grid')
+def shop_grid():
+    
+    return render_template('shop-grid.html')
+
 @bp.route('/contact')
 def contact():
     return render_template('contact.html')

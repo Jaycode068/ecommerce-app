@@ -1,6 +1,6 @@
 # app/auth/user_auth.py
 
-from flask import Blueprint, request, jsonify, session, g
+from flask import Blueprint, request, jsonify, session, g, redirect, url_for
 from app.extension import db, bcrypt
 from app.models.user import User
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
@@ -26,7 +26,9 @@ def login():
     session['user_id'] = user.id
 
     access_token = create_access_token(identity=user.id)
-    return jsonify(access_token=access_token), 200
+    
+    # Redirect the user to the '/main' route
+    return redirect(url_for('bp.main'))
 
 @auth_bp.route('/logout', methods=['GET'])
 @jwt_required()

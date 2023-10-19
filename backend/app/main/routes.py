@@ -3,7 +3,11 @@ from flask import render_template
 
 
 @bp.route('/')
-def index():
+def landing_page():
+    return render_template('landing-page.html')
+
+@bp.route('/main')
+def main():
     return render_template('index.html')
 
 @bp.route('/users')

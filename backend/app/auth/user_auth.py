@@ -33,7 +33,7 @@ def login():
     # Redirect the user to the '/main' route
     return 'success', 200
 
-@auth_bp.route('/logout', methods=['GET'])
+@auth_bp.route('/logout', methods=['POST'])
 def logout():
     # Clear the session to log the user out
     session.clear()

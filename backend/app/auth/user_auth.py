@@ -3,8 +3,10 @@
 from flask import Blueprint, request, jsonify, session, g, redirect, url_for
 from app.extension import db, bcrypt
 from app.models.user import User
+import datetime
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from flask_session import Session
+
+
 
 
 auth_bp = Blueprint('user_auth', __name__)
@@ -20,15 +22,16 @@ def login():
     user = User.query.filter_by(username=username).first()
     
     if not user or not verify_password(user.password, password):
-        return jsonify({'message': 'Login failed'}), 401
+        return jsonify({'messavge':'Invalid username and password'}), 401
     
     # Store user information in the session
-    session['user_id'] = user.id
+    #session['user_id'] = user.id
+    session['logged_in'] = True
 
     access_token = create_access_token(identity=user.id)
     
     # Redirect the user to the '/main' route
-    return redirect(url_for('bp.main'))
+    return 'success', 200
 
 @auth_bp.route('/logout', methods=['GET'])
 @jwt_required()
@@ -36,6 +39,17 @@ def logout():
     # Clear the session to log the user out
     session.clear()
     return jsonify({'message': 'Logged out successfully'}), 200
+
+@auth_bp.before_request
+def before_request():
+    last_activity_time = session.get('last_activity')
+    if last_activity_time and (datetime.datetime.now() - last_activity_time > datetime.timedelta(minutes=2)):
+        # Clear session and log out user
+        session.clear()
+
+    # Update the last activity time in the session
+    session['last_activity'] = datetime.datetime.now()
+
 
 @auth_bp.route('/current_user', methods=['GET'])
 @jwt_required()

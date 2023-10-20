@@ -1,5 +1,6 @@
 from app.main import bp
-from flask import render_template
+from flask import render_template, session, request, redirect
+#from flask_login import login_required
 
 
 @bp.route('/')
@@ -7,9 +8,13 @@ def landing_page():
     return render_template('landing-page.html')
 
 @bp.route('/main')
+#@login_required
 def main():
-    return render_template('index.html')
-
+    if session.get('logged_in'):
+        return render_template('index.html')
+    else:
+        return redirect('/login')
+        
 @bp.route('/users')
 def user():
     return  render_template('user.html')
@@ -21,18 +26,19 @@ def about_us():
 
 @bp.route('/my-account')
 def my_account():
-    
-    return render_template('my-account.html')
+    if session.get('logged_in'):
+        return render_template('my-account.html')
+    else:
+        return redirect('/login')
+        
 
 @bp.route('/shop')
 def shop_list():
+    if session.get('logged_in'):
+        return render_template('shop-list.html')
+    else:
+        return redirect('/login')
     
-    return render_template('shop-list.html')
-
-@bp.route('/shop-grid')
-def shop_grid():
-    
-    return render_template('shop-grid.html')
 
 @bp.route('/contact')
 def contact():

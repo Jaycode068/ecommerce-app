@@ -34,7 +34,6 @@ def login():
     return 'success', 200
 
 @auth_bp.route('/logout', methods=['GET'])
-@jwt_required()
 def logout():
     # Clear the session to log the user out
     session.clear()

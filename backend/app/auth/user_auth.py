@@ -27,6 +27,7 @@ def login():
     # Store user information in the session
     #session['user_id'] = user.id
     session['logged_in'] = True
+    session['username'] = user.username
 
     access_token = create_access_token(identity=user.id)
     

@@ -11,6 +11,7 @@ def landing_page():
 #@login_required
 def main():
     if session.get('logged_in'):
+        
         return render_template('index.html')
     else:
         return redirect('/login')
@@ -27,7 +28,8 @@ def about_us():
 @bp.route('/my-account')
 def my_account():
     if session.get('logged_in'):
-        return render_template('my-account.html')
+        login_user = session.get('username')
+        return render_template('my-account.html', login_user=login_user)
     else:
         return redirect('/login')
         

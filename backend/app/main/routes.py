@@ -34,10 +34,10 @@ def my_account():
         return redirect('/login')
         
 
-@bp.route('/shop')
-def shop_list():
+@bp.route('/shop-grid')
+def shop_grid():
     if session.get('logged_in'):
-        return render_template('shop-list.html')
+        return render_template('shop-grid.html')
     else:
         return redirect('/login')
     

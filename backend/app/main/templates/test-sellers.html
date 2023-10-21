@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seller's Dashboard</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Header Styles */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        /* Sidebar Styles */
+        #sidebar {
+            position: fixed;
+            width: 250px;
+            background: #333;
+            color: #fff;
+            height: 100%;
+            overflow: auto;
+            padding-top: 20px;
+            padding-left: 10px;
+        }
+        
+        .sidebar-item {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-item a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            padding: 10px 0;
+            padding-left: 10px;
+        }
+        
+        .sidebar-item a:hover {
+            background-color: #555;
+        }
+
+        .sidebar-submenu {
+            display: none;
+        }
+        
+        /* Main Content Styles */
+        #content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        /* Add this CSS to your <style> block */
+
+        .sidebar-submenu.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Seller's Dashboard</h1>
+    </header>
+    
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="sidebar-item"><a href="#">Dashboard</a></div>
+        <div class="sidebar-item">
+            <a href="#">Categories</a>
+            <div class="sidebar-submenu">
+                <a href="#">Add Categories</a>
+                <a href="#">Category Details</a>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#">Products</a>
+            <div class="sidebar-submenu">
+                <a href="#">Add Product</a>
+                <a href="#">Product Details</a>
+                <a href="#">Product List View</a>
+                <a href="#">Product Grid View</a>
+            </div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#">Orders</a>
+            <div class="sidebar-submenu">
+                <a href="#">New Order</a>
+                <a href="#">Order History</a>
+                <a href="#">Order Detail</a>
+                <a href="#">Invoice</a>
+            </div>
+        </div>
+        <div class="sidebar-item"><a href="#">Reviews</a></div>
+        <div class="sidebar-item"><a href="#">Brands</a></div>
+        <div class="sidebar-item"><a href="#">Settings</a></div>
+        <div class="sidebar-item"><a href="#">Logout</a></div>
+    </div>
+    
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Your content goes here -->
+    </div>
+    
+    <script>
+        // JavaScript to handle submenu toggles
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        
+        sidebarItems.forEach(item => {
+            const submenu = item.querySelector('.sidebar-submenu');
+            
+            if (submenu) {
+                item.addEventListener('click', () => {
+                    submenu.classList.toggle('show');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

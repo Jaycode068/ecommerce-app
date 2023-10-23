@@ -39,7 +39,6 @@ def create_app(config_class=Config):
     app.register_blueprint(order_bp, url_prefix='/api/v1')
     app.register_blueprint(auth_bp, url_prefix='/auth/v1')
     app.register_blueprint(address_bp, url_prefix='/api/v1')
-    app.register_blueprint(user, url_prefix='/api/v1')
 
     @app.route('/test/')
     def test_page():

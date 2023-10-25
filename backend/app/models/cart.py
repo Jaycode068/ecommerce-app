@@ -4,8 +4,9 @@ class Cart(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     quantity = db.Column(db.Integer, nullable=False)
-    user = db.relationship('User', back_populates='cart')
+    user = db.relationship('User')
     product = db.relationship('Product')
+    
 
     def _init_(self, user, product, quantity):
         self.user = user

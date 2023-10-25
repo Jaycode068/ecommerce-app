@@ -5,6 +5,7 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text)
+    image_filename = db.Column(db.String(255)) 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', back_populates='products')
 

@@ -1,7 +1,10 @@
 from app.main import bp
-from flask import render_template, session, request, redirect
-#from flask_login import login_required
+from flask import render_template, session, jsonify, redirect, send_from_directory, send_file, abort
 
+
+@bp.route('/images/<filename>')
+def send_image(filename):
+    return send_from_directory("images", filename)
 
 @bp.route('/')
 def landing_page():
@@ -33,6 +36,10 @@ def my_account():
     else:
         return redirect('/login')
         
+@bp.route('/app')
+def application_manager():
+    
+    return render_template('application-management.html')
 
 @bp.route('/shop-grid')
 def shop_grid():

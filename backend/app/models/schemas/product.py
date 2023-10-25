@@ -6,3 +6,4 @@ class ProductSchema(Schema):
     price = fields.Float(required=True)
     description = fields.Str(validate=validate.Length(max=500)) 
     category_id = fields.Int(required=False)
+    image_filename = fields.String(required=False)

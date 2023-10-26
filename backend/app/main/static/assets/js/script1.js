@@ -182,6 +182,7 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </div>
+
                 `;
 
                 // Append product item to available-products div

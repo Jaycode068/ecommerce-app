@@ -10,7 +10,7 @@ from marshmallow import ValidationError
 from werkzeug.utils import secure_filename
 import os
 
-product_bp = Blueprint('product', __name__)
+product_bp = Blueprint('product', __name__, static_folder='img_upload')
 api = Api(product_bp)
 
 product_schema = ProductSchema()
@@ -51,7 +51,6 @@ def create_product():
         db.session.commit()
         response = {
             "product": product_schema.dump(product),
-            "image_path": send_from_directory('product/images/', filename)
         }
         return jsonify(response)
 
@@ -99,45 +98,14 @@ class ProductListResource(Resource):
         products = Product.query.all()
         return products_schema.dump(products)
     
-    def post():
-        
-        '''
-        # Validate form data
-        product_data, errors = product_schema().load(request.form)
-  
-        # Validate file 
-        file_data, file_errors = request.files
-  
-        if errors or file_errors:
-            return jsonify({
-            "errors": errors + file_errors
-        }), 400
-  
-        # Save file
-        filename = save_file(file_data['image'])
-        
-        product_data['image_filename'] = filename
-  
-        # Create product 
-        product = Product(**product_data)
-        db.session.add(product)
-        db.session.commit()
-
-        # Return product object
-        return jsonify({
-            "product": product_schema().dump(product) 
-        })
-        '''
-        return 'Here', 200
-    
 def save_file(file):
     filename = secure_filename(file.filename)
   
     # Generate unique filename if file already exists
-    if os.path.exists(os.path.join('product/images/', filename)):
+    if os.path.exists(os.path.join('img_upload', filename)):
         filename = generate_unique_filename(filename)
 
-    file.save(os.path.join('product/images', filename))
+    file.save(os.path.join('img_upload', filename))
   
     return filename
 
@@ -146,7 +114,7 @@ def generate_unique_filename(filename):
     ext = os.path.extsep + filename.split(os.path.extsep)[-1]
   
     counter = 1
-    while os.path.exists(os.path.join('product/images/', 
+    while os.path.exists(os.path.join('img_upload', 
                        basename + '_' + str(counter) + ext)):
         counter += 1
 

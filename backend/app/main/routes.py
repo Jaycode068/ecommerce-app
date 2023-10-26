@@ -1,19 +1,12 @@
-from app.main import bp
-from flask import render_template, session, jsonify, redirect, send_from_directory, send_file, abort
+
+from flask import render_template, session, jsonify, redirect, send_from_directory,url_for, Blueprint
 import os
+bp = Blueprint('routes', __name__, static_folder='static/img')
 
 
-# List all images in the folder
-def get_image_list():
-    images = []
-    for filename in os.listdir('product/images'):
-        if filename.endswith('.jpg') or filename.endswith('.png'):
-            images.append(filename)
-    return images
-
-@bp.route('/images/<filename>')
-def send_image(filename):
-    return send_from_directory("assets/img/product/", filename)
+@bp.route('/img')
+def get_product_image():
+    return send_from_directory(bp.static_folder, 'blog1.png', origin='http://localhost:5000')
 
 @bp.route('/')
 def landing_page():
@@ -118,4 +111,3 @@ def login():
 def test_login():
     
     return render_template('test.html')
-

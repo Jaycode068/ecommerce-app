@@ -4,7 +4,6 @@ from app.extension import db
 from app.models.product import Product
 from app.models.category import Category
 from app.models.schemas.product import ProductSchema
-from app.models.schemas.category import CategorySchema
 from sqlalchemy.exc import IntegrityError
 from marshmallow import ValidationError
 from werkzeug.utils import secure_filename
@@ -102,10 +101,10 @@ def save_file(file):
     filename = secure_filename(file.filename)
   
     # Generate unique filename if file already exists
-    if os.path.exists(os.path.join('img_upload', filename)):
+    if os.path.exists(os.path.join('main/upload', filename)):
         filename = generate_unique_filename(filename)
 
-    file.save(os.path.join('img_upload', filename))
+    file.save(os.path.join('main/upload', filename))
   
     return filename
 
@@ -114,87 +113,28 @@ def generate_unique_filename(filename):
     ext = os.path.extsep + filename.split(os.path.extsep)[-1]
   
     counter = 1
-    while os.path.exists(os.path.join('img_upload', 
+    while os.path.exists(os.path.join('main/upload', 
                        basename + '_' + str(counter) + ext)):
         counter += 1
 
     new_filename = basename + '_' + str(counter) + ext
     return new_filename
 
-    # def post(self):
-    #     try:
-    #         # Get JSON data from the request
-    #         data = request.get_json()
-    #         print(data)
-    #         category = data.get('category_id')
     
-    #         if 'image' not in request.files:
-    #             return "File name not found"
-    #         file = request.files['image']
-    #         print("*******")
-    #         print(file.filename)
-    #         print("*******")
-    #         try:
-    #             if file:
-    #                 filename = os.path.join(product_bp.config['UPLOAD_FOLDER'], file.filename)
-    #                 file.save(filename)
-    #                 print('not found')
-    #         except Exception as e:
-    #             print(e)
-    #             return "Error while trying to save file", 500
-    #         try:
-    #             #Retrieve the existing category from the database based on category_id
-    #             existing_category = Category.query.get_or_404(category)
+def query_image(product_id):
+    result = Product.query.filter_by(id=product_id)
+    for image in result:
+        return image.image
+
+class FetchPost(Resource):
+    def get(self, image):
         
-    #         # Handle validation errors, IntegrityErrors, and other exceptions as needed
-    #         except ValidationError as err:
-    #             response_data = {'errors': err.messages}
-    #             return json_response(response_data, status_code=400)
-            
-            
-            
-            
-            
-    #         # Validate and deserialize product data using product_schema
-    #         product_data_validated = product_schema.load(data)
-    #         product_data_validated['image_filename'] = filename
-            
-    #         # Create a new Product instance associated with the existing category
-    #         new_product = Product(**product_data_validated)
-
-    #         # Add the new product to the database session
-    #         db.session.add(new_product)
-
-    #         # Commit the transaction to the database
-    #         db.session.commit()
-
-    #         # Return the newly created product as JSON response
-    #         response_data = {
-    #             'product': ProductSchema().dump(new_product),
-    #             'category': CategorySchema().dump(existing_category)
-    #         }
-    #         return json_response(response_data, status_code=201)
-
-    #     # Handle validation errors, IntegrityErrors, and other exceptions as needed
-    #     except ValidationError as err:
-    #         response_data = {'errors': err.messages}
-    #         return json_response(response_data, status_code=400)
-
-    #     except IntegrityError as e:
-    #         db.session.rollback()
-    #         response_data = {'error': 'Database integrity error occurred.'}
-    #         return json_response(response_data, status_code=500)
-
-    #     except Exception as e:
-    #         db.session.rollback()
-    #         print(e)
-    #         response_data = {'error': 'Internal server error occurred.'}
-    #         return json_response(response_data, status_code=500)
-        
-        
+        return send_from_directory('img', image, mimetype='image/png')
+    
 def json_response(data, status_code=200):
     """Helper function to create a JSON response."""
     return Response(json.dumps(data), status=status_code, mimetype='application/json')
-        
+
+api.add_resource(FetchPost, '/file')    
 api.add_resource(ProductListResource, '/products')
 api.add_resource(ProductResource, '/products/<int:product_id>')

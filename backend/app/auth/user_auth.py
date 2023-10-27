@@ -25,7 +25,7 @@ def login():
         return jsonify({'messavge':'Invalid username and password'}), 401
     
     # Store user information in the session
-    #session['user_id'] = user.id
+    session['user_id'] = user.id
     session['logged_in'] = True
     session['username'] = user.username
 

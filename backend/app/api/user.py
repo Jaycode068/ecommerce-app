@@ -22,17 +22,6 @@ def get_users():
         print(e)
         return jsonify({'error': 'Database error occurred'}), 500
 
-# Error handler for UserNotFoundError
-@bp.errorhandler(UserNotFound)
-def handle_user_not_found_error(error):
-    return jsonify({'error': 'User not found'}), 404
-
-# Error handler for general exceptions
-@bp.errorhandler(Exception)
-def handle_error(error):
-    return jsonify({'error': 'Internal server error'}), 500
-
-
 @bp.route('/users', methods=['POST'])
 def signup():
     data = request.get_json()
@@ -131,3 +120,12 @@ def delete_user(user_id):
         return jsonify({'error': 'Error occurred while deleting the user'}), 500
 
 
+# Error handler for UserNotFoundError
+@bp.errorhandler(UserNotFound)
+def handle_user_not_found_error(error):
+    return jsonify({'error': 'User not found'}), 404
+
+# Error handler for general exceptions
+@bp.errorhandler(Exception)
+def handle_error(error):
+    return jsonify({'error': 'Internal server error'}), 500

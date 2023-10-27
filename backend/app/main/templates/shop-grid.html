@@ -19,7 +19,45 @@
 
   <!-- Custom Style CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
+<style>
+    /* Modal styles */
+#modal {
+  display: none; 
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 30%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
 
+#modal#modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Close button */
+#close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+#close:hover,
+#close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
@@ -1179,7 +1217,13 @@
 
     </header>
     <!-- End header area -->
-
+    <div id="add-to-cart-modal" id="modal">
+        <div id="modal-content">
+          <span id="close">&times;</span>
+          <p>Item added to cart:</p>
+          <p id="modal-item-name"></p> 
+        </div>
+      </div>
 
     <main class="main__content_wrapper">
         
@@ -1269,6 +1313,8 @@
                         </div>
                     </div>
                     <p class="product__showing--count">Showing 1–9 of 21 results</p>
+
+                    
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -1278,9 +1324,9 @@
                                     <div class="product__section--inner product__grid--inner">
                                         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 mb--n30" id="available-products">
                                             
-                                            
+                                            <span id="user_id" class="visually-hidden">{{user_id}}</span>
                                            
-                                            
+
                                             <div class="col mb-30" >
                                                 <div class="product__items">
                                                     <div class="product__items--thumbnail">
@@ -1293,7 +1339,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="product__items--content">
-                                                        <span class="product__items--content__subtitle">Men Top</span>
+                                                        <span class="product__items--content__subtitle" id="test">Men Top</span>
                                                         <h3 class="product__items--content__title h4"><a href="/product-details">Oversize Cotton Dress</a></h3>
                                                         <div class="product__items--price">
                                                             <span class="current__price">$110</span>
@@ -1339,7 +1385,7 @@
                                                         </ul>
                                                         <ul class="product__items--action d-flex">
                                                             <li class="product__items--action__list">
-                                                                <a class="product__items--action__btn add__to--cart" href="/cart">
+                                                                <a class="product__items--action__btn add__to--cart" id="acart">
                                                                     <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 14.706 13.534">
                                                                         <g transform="translate(0 0)">
                                                                         <g>

@@ -59,6 +59,7 @@ class ProductResource(Resource):
     def get(self, product_id):
         product = Product.query.get_or_404(product_id)
         return product_schema.dump(product)
+    
     def put(self, product_id):
         product = Product.query.get_or_404(product_id)
         data = request.get_json() or {}

@@ -9,15 +9,13 @@ from app.api import bp as user_bp
 from app.auth.user_auth import auth_bp
 from app.api.address import address_bp
 from app.api.order_Item import order_item_bp
-
-#from app.api.cart import cart_bp
+from app.api.cart import cart_bp
 import os
 from flask_cors import CORS
  
 
 from flask_jwt_extended import JWTManager
 from flask_session import Session
-
 
 def create_app(config_class=Config):
     app = Flask(__name__, template_folder='main/templates', static_folder='main/static/assets')
@@ -53,7 +51,7 @@ def create_app(config_class=Config):
     app.register_blueprint(auth_bp, url_prefix='/auth/v1')
     app.register_blueprint(address_bp, url_prefix='/api/v1')
     app.register_blueprint(order_item_bp, url_prefix='/api/v1')
-    #app.register_blueprint(cart_bp, url_prefix='/api/v1')
+    app.register_blueprint(cart_bp, url_prefix='/api/v1')
     
     @app.route('/static/images/<path:filename>')
     def serve_static_image_file(filename):

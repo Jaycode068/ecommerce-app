@@ -3,7 +3,6 @@ from flask import render_template, session, jsonify, redirect, send_from_directo
 import os
 bp = Blueprint('routes', __name__, static_folder='static/img')
 
-
 @bp.route('/img')
 def get_product_image():
     return send_from_directory(bp.static_folder, 'blog1.png', origin='http://localhost:5000')
@@ -46,7 +45,8 @@ def application_manager():
 @bp.route('/shop-grid')
 def shop_grid():
     if session.get('logged_in'):
-        return render_template('shop-grid.html')
+        user_id = session.get('user_id')
+        return render_template('shop-grid.html', user_id=user_id)
     else:
         return redirect('/login')
     
@@ -58,7 +58,11 @@ def contact():
 
 @bp.route('/cart')
 def cart():
-    return render_template('cart.html')
+    if session.get('logged_in'):
+        print(session.get('user_id'))
+        return render_template('cart.html')
+    else:
+        return redirect('/login')
 
 
 @bp.route('/portfolio')

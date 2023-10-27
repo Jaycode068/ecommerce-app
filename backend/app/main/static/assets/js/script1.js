@@ -64,6 +64,8 @@ $("#productForm").submit(function(event) {
 });
 
 
+
+
 $(document).ready(function() {
     // jQuery code for dynamically populating category options
     $.ajax({
@@ -81,6 +83,7 @@ $(document).ready(function() {
         }
     });
 
+    
     $.ajax({
         url: 'http://localhost:5000/api/v1/products',
         method: 'GET',
@@ -88,16 +91,43 @@ $(document).ready(function() {
         success: function(data) {
             
             // Iterate through the data and populate the available-products div
+            $('#available-products').on('click', '#addtocart', function(e) {
+                let proudct_name = $(this).closest('.product__items--content').find('#pname').text();
+                let product_id = $(this).closest('.product__items--content').find('#product_id').text();
+                let user = $('#user_id').text();
+                let price = $(this).closest('.product__items--content').find('#price').text();
+                
+                $.ajax({
+                    url:        '/api/v1/cart_items',
+                    method:     'POST',
+                    contentType: 'application/json',
+                    data:         JSON.stringify({product_id:product_id,user_id:user, quantity:1}),   
+                    success:    function(res){
+                        $('#modal').css('display', 'block');
+                        $('#modal-item-name').text(itemName);
+
+                        // Close modal
+                        $('#close').click(function() {
+                            $('#add-to-cart-modal').css('display', 'none');
+                        });
+                        
+                    },
+
+                    error: function(res){
+                        console.log(res)
+                    }
+                });
+            });
+    
             $.each(data, function(index, product) {
-                
-            
-                // Create product item HTML
-                
-                let productItem = `                                     
+
+                let productItem = `  
+                                   
                 <div class="col mb-30" >
                     <div class="product__items">
                         <div class="product__items--thumbnail">
                             <a class="product__items--link" href="/product-details">
+
                                 <img class="product__items--img product__primary--img" src="/product/images/${product.image_filename}" alt="product-img">
                                 <img class="product__items--img product__secondary--img" src="/product/images/${product.image_filename}" alt="product-img">
                             </a>
@@ -106,10 +136,11 @@ $(document).ready(function() {
                             </div>
                         </div>
                         <div class="product__items--content">
-                            <span class="product__items--content__subtitle" >${product.name}</span>
+                            <span class="product__items--content__subtitle" id="pname" >${product.name}</span>
+                            <span class="visually-hidden" id=product_id>${product.id}</span>
                             <h3 class="product__items--content__title h4"><a href="/product-details">${product.description}</a></h3>
                             <div class="product__items--price">
-                                <span class="current__price">$${product.price}</span>
+                                <span class="current__price" id="price">$${product.price}</span>
                                 <span class="price__divided"></span>
                                 <span class="old__price">$78</span>
                             </div>
@@ -152,18 +183,18 @@ $(document).ready(function() {
                             </ul>
                             <ul class="product__items--action d-flex">
                                 <li class="product__items--action__list">
-                                    <a class="product__items--action__btn add__to--cart" href="/cart">
-                                        <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 14.706 13.534">
-                                            <g transform="translate(0 0)">
-                                            <g>
-                                                <path data-name="Path 16787" d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z" transform="translate(0 -463.248)" fill="currentColor"></path>
-                                                <path data-name="Path 16788" d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z" transform="translate(-1.191 -466.622)" fill="currentColor"></path>
-                                                <path data-name="Path 16789" d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z" transform="translate(-2.875 -466.622)" fill="currentColor"></path>
-                                            </g>
-                                            </g>
-                                        </svg>
-                                        <span class="add__to--cart__text"> + Add to cart</span>
-                                    </a>
+                                <a class="product__items--action__btn add__to--cart" id="addtocart">
+                                <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="20.443" viewBox="0 0 14.706 13.534">
+                                    <g transform="translate(0 0)">
+                                        <g>
+                                            <path data-name="Path 16787" d="M4.738,472.271h7.814a.434.434,0,0,0,.414-.328l1.723-6.316a.466.466,0,0,0-.071-.4.424.424,0,0,0-.344-.179H3.745L3.437,463.6a.435.435,0,0,0-.421-.353H.431a.451.451,0,0,0,0,.9h2.24c.054.257,1.474,6.946,1.555,7.33a1.36,1.36,0,0,0-.779,1.242,1.326,1.326,0,0,0,1.293,1.354h7.812a.452.452,0,0,0,0-.9H4.74a.451.451,0,0,1,0-.9Zm8.966-6.317-1.477,5.414H5.085l-1.149-5.414Z" transform="translate(0 -463.248)" fill="currentColor"></path>
+                                            <path data-name="Path 16788" d="M5.5,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,5.5,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,6.793,478.352Z" transform="translate(-1.191 -466.622)" fill="currentColor"></path>
+                                            <path data-name="Path 16789" d="M13.273,478.8a1.294,1.294,0,1,0,1.293-1.353A1.325,1.325,0,0,0,13.273,478.8Zm1.293-.451a.452.452,0,1,1-.431.451A.442.442,0,0,1,14.566,478.352Z" transform="translate(-2.875 -466.622)" fill="currentColor"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            <span class="add__to--cart__text"> + Add to cart</span>
+                        </a>
                                 </li>
                                 <li class="product__items--action__list">
                                     <a class="product__items--action__btn" href="/wishlist">
@@ -187,6 +218,7 @@ $(document).ready(function() {
 
                 // Append product item to available-products div
                 $('#available-products').append(productItem);
+                
             });
         },
         error: function(error) {

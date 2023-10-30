@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, request
 from flask_restful import Api, Resource, reqparse
-from app.extension import db  # Import your database extension
+from app.extension import db  
 from app.models.order_item import OrderItem
 from app.models.product import Product
 from marshmallow import Schema, fields, ValidationError  

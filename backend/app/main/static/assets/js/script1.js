@@ -92,7 +92,7 @@ $(document).ready(function() {
             
             // Iterate through the data and populate the available-products div
             $('#available-products').on('click', '#addtocart', function(e) {
-                let proudct_name = $(this).closest('.product__items--content').find('#pname').text();
+                let product_name = $(this).closest('.product__items--content').find('#pname').text();
                 let product_id = $(this).closest('.product__items--content').find('#product_id').text();
                 let user = $('#user_id').text();
                 let price = $(this).closest('.product__items--content').find('#price').text();
